@@ -90,6 +90,10 @@ public class ArticlesActivity extends AppCompatActivity {
                     if (article.getStatus().equals("ok")){
                         listArticles = article.getArticles();
 
+                        for (Article.ListArticle data : listArticles){
+                            listArticleHelper.add(data);
+                        }
+
                         listArticlesAdapter.setListArticles(listArticles);
                     }
 
@@ -156,6 +160,17 @@ public class ArticlesActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")){
+                    loadDataArticles(source);
+                }
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                loadDataArticles(source);
                 return false;
             }
         });
